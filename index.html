@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>743-site by vrazdan</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,43 +9,69 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
+</head>
+
+<body>
     <section class="page-header">
-      <h1 class="project-name">Power Consumption of Deep Learning on CPUs vs. GPUs</h1>
-      <h2 class="project-tagline">Karim Elmaaroufi, Vishnu Razdan </h2>
-      <a href="https://github.com/vrazdan/743-site" class="btn">View on GitHub</a>
+        <h1 class="project-name">Power Consumption of Deep Learning on CPUs vs. GPUs</h1>
+        <h2 class="project-tagline">Karim Elmaaroufi, Vishnu Razdan </h2>
+        <a href="https://github.com/vrazdan/743-site" class="btn">View on GitHub</a>
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="Project Overview" class="anchor" href="#Project_Overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Overview</h3>
+        <h3>
+            <a id="Project Overview" class="anchor" href="#Project_Overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Overview</h3>
 
-<p>Deep learning has sparked a new found interest in machine learning due to its ability to solve several types of tasks. There are large computational complexities associated with deep learning due to the size of datasets and the connections between data points. The most recent libraries use a combination of CPU and GPU computation to accelerate the deep learning algorithms. Most notably, this occurs during the training period. Double digit performance increases have been noted since the inclusion of GPUs in deep learning. However, since their inclusion, GPUs have grown in power consumption to meet computational demands. This has led to issues in reliability and cooling in data center applications. In order to strike a balance between power and performance, this paper aims to answer the holistic question of, “Are GPUs more energy efficient for deep learning algorithms?” We will include the cost of data transfer over PCIe from host to GPU, computation on the GPU, the pre and post processing of data done by the CPU, and the total time required for the algorithm.</p>
+        <p>Deep learning has sparked a new found interest in machine learning due to its ability to solve several types of tasks. There are large computational complexities associated with deep learning due to the size of datasets and the connections between data points. The most recent libraries use a combination of CPU and GPU computation to accelerate the deep learning algorithms. Most notably, this occurs during the training period. Double digit performance increases have been noted since the inclusion of GPUs in deep learning. However, since their inclusion, GPUs have grown in power consumption to meet computational demands. This has led to issues in reliability and cooling in data center applications. In order to strike a balance between power and performance, this paper aims to answer the holistic question of, “Are GPUs more energy efficient for deep learning algorithms?” We will compare the energy costs and the total time required for the algorithms.</p>
 
-<h3>
-<a id="Software" class="anchor" href="#Software" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Software</h3>
+        <h3>
+            <a id="Software" class="anchor" href="#Software" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Software</h3>
 
-<p>For databases we will be using MNIST and FaceScrub. If we are able to measure the power costs associated with transferring data over PCIe we will also use SUN397 and COCO 2014 and 2015. </br> We will be using the REsNet-50 and FCN-8 networks. We will be using Caffe and Tensorflow. <br> For power measurements we will be using Intel Power Gadget, which accurately measures the power used by the CPU in real-time. </p>
+        <p>For databases we will be using MNIST, training two networks. One will be trained with LeNet 5, the other with Softmax, and both are implemented on top of TensorFlow. <br> For power measurements we will be using Intel Power Gadget, which accurately measures the power used by the CPU in real-time. For power measurements of the GPU we will use nvidia-smi interface, which allows for continuous status monitoring of the GPU as it processes our machine learning code. </p>
 
-<h3>
-<a id="Hardware" class="anchor" href="#Hardware" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hardware</h3>
+        <h3>
+            <a id="Hardware" class="anchor" href="#Hardware" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hardware</h3>
 
-<p>For hardware we have Vishnu's laptop with Intel i7-3630 QM and NVIDIA GTX 660M, Karim's laptop with Intel i7-6600U, NVIDIA Jetson K1, GPU Cluster 1 with a NVIDIA GTX 760, and GPU Cluster 2 with dual NVIDIA Titan X in SLI. GPU power measurements will be done on GPU Cluster 2, while CPU power measurements will be done on Vishnu's laptop. If additional CPU resources are needed we may use the CPUs in the two GPU Clusters. </p>
+        <p>For hardware we have Vishnu's laptop with Intel i7-3630 QM, Karim's laptop with Intel i7-6600U, and one additional computer with a NVIDIA GTX 980 Ti. CPU power measurements were done on both laptops, with additional measurements to check the effect of turning Battery Saver on while training on Karim's laptop. </p>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>Karim Elmaaroufi and Vishnu Razdan are the students working on this project. Professor Diana Marculescu and Dimitrios Stamoulis have been essential mentors for this project. </p>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/vrazdan/743-site">743-site</a> is maintained by <a href="https://github.com/vrazdan">vrazdan</a>.</span>
+        <h3>
+            <a id="Results" class="anchor" href="#Results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h3>
+        All in-depth analysis can be found <a href="Final%20GPU%20vs%20CPU%20ML.docx">here</a>.
+        <h4> Softmax training</h4>
+        <p>
+            <br> For Softmax training, all hardware resources completed the training within 5 seconds. Though the GPU training was the fastest, it also consumed the most energy. As such, our recommendation for training using simple algorithms is that CPU training is more efficient as the increase in time is small while the energy difference is great.
+            <br>
+            <img src="tfsoftmaxy580.png">
+            <img src="tfsoftmax980.png">
+            <img src="tfsoftmaxsbbs.png">
+            <img src="tfsoftmaxsbbss.png">
+        </p>
+        <h4>LeNet 5 training</h4>
+        <p>
+            <br> CPU training took much longer than GPU training; as such, the energy and time savings from GPU training are very prominent. Further analysis is <a href="Final%20GPU%20vs%20CPU%20ML.docx">here</a>.
+            <br>
+            <img src="tflenety580.png">
+            <img src="tflenetgtx.png">
+            <img src="tflenetnobs.png">
+            <img src="tflenetbs.png">
+        </p>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+        <h3>
+            <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+        <p>Karim Elmaaroufi and Vishnu Razdan are the students who worked on this project. Professor Diana Marculescu and Dimitrios Stamoulis have been essential mentors for this project. </p>
+
+        <footer class="site-footer">
+            <span class="site-footer-owner"><a href="https://github.com/vrazdan/743-site">743-site</a> is maintained by <a href="https://github.com/vrazdan">vrazdan</a>.</span>
+
+            <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+        </footer>
 
     </section>
 
-  
-  </body>
+
+</body>
+
 </html>
